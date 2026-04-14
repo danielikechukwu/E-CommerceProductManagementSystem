@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "daV5N4SX+pU=",
+  "dgSpecHash": "ULsteIvZW+g=",
   "success": true,
   "projectFilePath": "C:\\Users\\User\\Desktop\\Personal Projects\\C#\\E-CommerceProductManagementSystem\\E-CommerceProductManagementSystem.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\efcore.namingconventions\\10.0.1\\efcore.namingconventions.10.0.1.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.5\\microsoft.aspnetcore.openapi.10.0.5.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.build.framework\\18.0.2\\microsoft.build.framework.18.0.2.nupkg.sha512",

@@ -21,7 +21,11 @@ public class Product
     public decimal Price { get; set; }
     
     [ForeignKey(nameof(Category))]
-    [Required(ErrorMessage = "Category is required")]
+    [Required(ErrorMessage = "CategoryId is required")]
     public int CategoryId { get; set; }
-    
+
+    public Category Category { get; set; } = null!;
+
+    public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
 }
