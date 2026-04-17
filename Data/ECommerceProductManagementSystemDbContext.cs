@@ -6,7 +6,7 @@ namespace E_CommerceProductManagementSystem.Data;
 public class ECommerceProductManagementSystemDbContext : DbContext
 {
     public ECommerceProductManagementSystemDbContext(
-        DbContextOptions<ECommerceProductManagementSystemDbContext> options)
+        DbContextOptions<ECommerceProductManagementSystemDbContext> options) : base(options)
     {
     }
 
@@ -17,7 +17,7 @@ public class ECommerceProductManagementSystemDbContext : DbContext
         //Defining the Relationship beween Order and OrderItems with Cascade Delete Behavior
 
         modelBuilder.Entity<Order>()
-            .HasMany(o => o.OrderItems)
+            .HasMany(o => o.Items)
             .WithOne(oi => oi.Order)
             .HasForeignKey(oi => oi.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
@@ -55,12 +55,21 @@ public class ECommerceProductManagementSystemDbContext : DbContext
         );
 
         // Seed order
+        modelBuilder.Entity<Order>().Property(o => o.Date).HasColumnType("timestamptz");
+        
         modelBuilder.Entity<Order>().HasData(
             new Order
             {
-                Id = 1, CustomerId = 1, OrderDate = new DateTime(2024, 1, 15, 10, 30, 0), OrderAmount = 1540.00m
+                Id = 1, CustomerId = 1,
+                Date = new DateTimeOffset(2024, 1, 15, 10, 30, 0, TimeSpan.Zero),
+                Amount = 1540.00m
             },
-            new Order { Id = 2, CustomerId = 2, OrderDate = new DateTime(2024, 2, 5, 15, 45, 0), OrderAmount = 840.00m }
+            new Order
+            {
+                Id = 2, CustomerId = 2,
+                Date = new DateTimeOffset(2024, 1, 15, 10, 30, 0, TimeSpan.Zero),
+                Amount = 840.00m
+            }
         );
 
         // Seed OrderItems

@@ -15,11 +15,14 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
 
-var connectionString = builder.Configuration.GetConnectionString("ECommerceProductManagementSystemDb");
+// Get Connection String
+var connectionString = builder.Configuration.GetConnectionString("ECommerceDatabaseManagementSystem");
 
-// Register dbcontext
+// Register DbContext with PostgreSQL
 builder.Services.AddDbContext<ECommerceProductManagementSystemDbContext>(options =>
-    options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention());
+{
+    options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
+});
 
 var app = builder.Build();
 
