@@ -5,17 +5,17 @@ namespace E_CommerceProductManagementSystem.Repositories;
 
 public interface ICustomerRepository
 {
-    Task<IEnumerable<Customer>> GetAllCustomerAsync(int id);
+    Task<IEnumerable<Customer>> GetAllAsync();
     
-    Task<Customer> GetCustomerByIdAsync(int id);
+    Task<Customer?> GetByIdAsync(int id);
     
-    Task AddCustomerAsync(CustomerDTO customer);
+    Task AddAsync(Customer customer);
     
-    void Update(CustomerDTO customer);
+    void Update(Customer customer);
     
-    void DeleteCustomer(int id);
+    void Delete(Customer customer);
     
-    Task<bool> CustomerExistAsync(int id);
+    Task<bool> ExistsAsync(int id);
     
     Task SaveAsync();
 }

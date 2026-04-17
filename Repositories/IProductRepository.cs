@@ -5,17 +5,17 @@ namespace E_CommerceProductManagementSystem.Repositories;
 
 public interface IProductRepository
 {
-    Task<IEnumerable<Product>> GetAllProducts();
+    Task<IEnumerable<Product>> GetAllAsync();
     
-    Task<Product?> GetProductById(int id);
+    Task<Product?> GetByIdAsync(int id);
     
-    Task AddProduct(ProductDTO product);
+    Task AddAsync(Product product);
     
-    void UpdateProduct(ProductDTO product);
+    void Update(Product product);
     
-    void DeleteProduct(int id);
+    void Delete(Product product);
     
-    Task<bool> ExistAsync(int id);
+    Task<bool> ExistsAsync(int id);
     
     Task SaveAsync();
     
