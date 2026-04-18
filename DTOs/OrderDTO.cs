@@ -7,7 +7,7 @@ public class OrderDTO
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Order Date is required.")]
-    public DateTime OrderDate { get; set; }
+    public DateTimeOffset OrderDate { get; set; }
 
     [Required(ErrorMessage = "CustomerId is required.")]
     public int CustomerId { get; set; }
