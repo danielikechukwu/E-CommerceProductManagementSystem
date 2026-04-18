@@ -1,4 +1,6 @@
 using E_CommerceProductManagementSystem.Data;
+using E_CommerceProductManagementSystem.Repositories;
+using E_CommerceProductManagementSystem.Repositories.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -23,6 +25,12 @@ builder.Services.AddDbContext<ECommerceProductManagementSystemDbContext>(options
 {
     options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
 });
+
+// Register service
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 var app = builder.Build();
 
