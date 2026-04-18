@@ -11,11 +11,13 @@ namespace E_CommerceProductManagementSystem.Controllers;
 public class ProductsController : ControllerBase
 {
     private readonly IProductRepository _productRepository;
+
     private readonly ICategoryRepository _categoryRepository;
 
     public ProductsController(IProductRepository productRepository, ICategoryRepository categoryRepository)
     {
         _productRepository = productRepository;
+
         _categoryRepository = categoryRepository;
     }
 
@@ -23,7 +25,7 @@ public class ProductsController : ControllerBase
     public async Task<IActionResult> GetProducts()
     {
         var products = await _productRepository.GetAllAsync();
-        
+
         var dtos = products.Select(p => new ProductDTO()
         {
             Id = p.Id,
@@ -33,26 +35,8 @@ public class ProductsController : ControllerBase
             CategoryId = p.CategoryId,
             CategoryName = p.Category?.Name
         });
-        
-        return Ok(dtos);
-    }
-    
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetCategory(int id)
-    {
-        var category = await _categoryRepository.GetByIdAsync(id);
-        
-        if (category == null)
-            return NotFound();
 
-        var dto = new CategoryDTO()
-        {
-            Id = category.Id,
-            Name = category.Name,
-            Description = category.Description
-        };
-        
-        return Ok(dto);
+        return Ok(dtos);
     }
 
     [HttpPost]
@@ -60,12 +44,12 @@ public class ProductsController : ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
-        
+
         bool categoryExists = await _categoryRepository.ExistsAsync(dto.CategoryId);
-        
+
         if (!categoryExists)
             return BadRequest("Invalid CategoryId");
-        
+
         var product = new Product
         {
             Name = dto.Name,
@@ -73,13 +57,13 @@ public class ProductsController : ControllerBase
             Price = dto.Price,
             CategoryId = dto.CategoryId
         };
-        
+
         await _productRepository.AddAsync(product);
-        
+
         await _productRepository.SaveAsync();
-        
+
         dto.Id = product.Id; // set generated ID
-        
+
         return Ok(dto);
     }
 
@@ -88,29 +72,29 @@ public class ProductsController : ControllerBase
     {
         if (id != dto.Id)
             return BadRequest("Id mismatch");
-        
+
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
-        
+
         var existing = await _productRepository.GetByIdAsync(id);
-        
+
         if (existing == null)
             return NotFound();
-        
+
         bool categoryExists = await _categoryRepository.ExistsAsync(dto.CategoryId);
-        
+
         if (!categoryExists)
             return BadRequest("Invalid CategoryId");
-        
+
         existing.Name = dto.Name;
         existing.Description = dto.Description;
         existing.Price = dto.Price;
         existing.CategoryId = dto.CategoryId;
-        
+
         _productRepository.Update(existing);
-        
+
         await _productRepository.SaveAsync();
-        
+
         return NoContent();
     }
 
@@ -118,12 +102,12 @@ public class ProductsController : ControllerBase
     public async Task<IActionResult> DeleteProduct(int id)
     {
         var existing = await _productRepository.GetByIdAsync(id);
-        
+
         if (existing == null) return NotFound();
-        
+
         _productRepository.Delete(existing);
         await _productRepository.SaveAsync();
-        
+
         return NoContent();
     }
 }
