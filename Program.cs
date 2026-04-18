@@ -27,10 +27,13 @@ builder.Services.AddDbContext<ECommerceProductManagementSystemDbContext>(options
 });
 
 // Register service
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+// builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); // Controller using this repository switched to generic repository pattern
+// builder.Services.AddScoped<IProductRepository, ProductRepository>(); // Controller using this repository switched to generic repository pattern
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+// Register Generic repository
+builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 

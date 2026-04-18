@@ -9,9 +9,11 @@ namespace E_CommerceProductManagementSystem.Controllers;
 [Route("[controller]")]
 public class CustomersController : ControllerBase
 {
-    private readonly ICustomerRepository _customerRepository;
+    // private readonly ICustomerRepository _customerRepository;
+
+    private readonly IRepository<Customer> _customerRepository;
     
-    public CustomersController(ICustomerRepository customerRepository)
+    public CustomersController(IRepository<Customer> customerRepository)
     {
         _customerRepository = customerRepository;
     }
