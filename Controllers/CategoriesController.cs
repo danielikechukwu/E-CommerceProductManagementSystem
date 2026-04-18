@@ -68,4 +68,43 @@ public class CategoriesController : ControllerBase
         dto.Id = category.Id;
         return Ok(dto);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryDTO dto)
+    {
+        if (id != dto.Id)
+            return BadRequest("Id mismatch");
+
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var existingCategory = await _categoryRepository.GetByIdAsync(id);
+
+        if (existingCategory == null)
+            return NotFound();
+        
+        existingCategory.Name = dto.Name;
+        existingCategory.Description = dto.Description;
+        
+        _categoryRepository.Update(existingCategory);
+        
+        await _categoryRepository.SaveAsync();
+        
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteCategory(int id)
+    {
+        var existingCategory = await _categoryRepository.GetByIdAsync(id);
+
+        if (existingCategory == null)
+            return NotFound();
+        
+        _categoryRepository.Delete(existingCategory);
+        
+        await  _categoryRepository.SaveAsync();
+        
+        return Ok();
+    }
 }
