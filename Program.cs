@@ -16,6 +16,9 @@ builder.Services
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
+// Register Generic repository
+builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -35,9 +38,6 @@ builder.Services.AddDbContext<ECommerceProductManagementSystemDbContext>(options
 {
     options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
 });
-
-// Register Generic repository
-// builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 
