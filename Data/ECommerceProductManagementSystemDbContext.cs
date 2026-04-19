@@ -12,8 +12,6 @@ public class ECommerceProductManagementSystemDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-
         //Defining the Relationship beween Order and OrderItems with Cascade Delete Behavior
 
         modelBuilder.Entity<Order>()
@@ -22,15 +20,14 @@ public class ECommerceProductManagementSystemDbContext : DbContext
             .HasForeignKey(oi => oi.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Seed category
-        modelBuilder.Entity<Category>()
-            .HasData(
-                new Category { Id = 1, Name = "Electronics", Description = "Electronic devices and gadgets" },
-                new Category { Id = 2, Name = "Books", Description = "Various genres of books and literature" },
-                new Category { Id = 3, Name = "Clothing", Description = "Men's and women's apparel" }
-            );
+        // Seed Categories
+        modelBuilder.Entity<Category>().HasData(
+            new Category { Id = 1, Name = "Electronics", Description = "Electronic devices and gadgets" },
+            new Category { Id = 2, Name = "Books", Description = "Various genres of books and literature" },
+            new Category { Id = 3, Name = "Clothing", Description = "Men's and women's apparel" }
+        );
 
-        // Seed products
+        // Seed Products
         modelBuilder.Entity<Product>().HasData(
             new Product
             {
@@ -38,8 +35,7 @@ public class ECommerceProductManagementSystemDbContext : DbContext
             },
             new Product
             {
-                Id = 2, Name = "Smartphone", Price = 800m, CategoryId = 1,
-                Description = "Latest model smartphone"
+                Id = 2, Name = "Smartphone", Price = 800m, CategoryId = 1, Description = "Latest model smartphone"
             },
             new Product
             {
@@ -48,7 +44,7 @@ public class ECommerceProductManagementSystemDbContext : DbContext
             }
         );
 
-        // Seed customer
+        // Seed Customers
         modelBuilder.Entity<Customer>().HasData(
             new Customer { Id = 1, FullName = "John Doe", Email = "john@example.com" },
             new Customer { Id = 2, FullName = "Jane Smith", Email = "jane@example.com" }
@@ -56,7 +52,7 @@ public class ECommerceProductManagementSystemDbContext : DbContext
 
         // Seed order
         modelBuilder.Entity<Order>().Property(o => o.Date).HasColumnType("timestamptz");
-        
+
         modelBuilder.Entity<Order>().HasData(
             new Order
             {

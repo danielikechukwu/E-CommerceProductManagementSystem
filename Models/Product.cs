@@ -10,7 +10,7 @@ public class Product
     
     [Required(ErrorMessage = "Product name is required")]
     [StringLength(100, ErrorMessage = "Product name cannot exceed 100 characters")]
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; }
     
     [StringLength(100, ErrorMessage = "Product description cannot exceed 100 characters")]
     public string? Description { get; set; }

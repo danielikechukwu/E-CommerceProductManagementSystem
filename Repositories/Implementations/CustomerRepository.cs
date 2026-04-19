@@ -8,7 +8,7 @@ public class CustomerRepository : ICustomerRepository
 {
     private readonly ECommerceProductManagementSystemDbContext _context;
     
-    private CustomerRepository(ECommerceProductManagementSystemDbContext context)
+    public CustomerRepository(ECommerceProductManagementSystemDbContext context)
     {
         _context = context;
     }

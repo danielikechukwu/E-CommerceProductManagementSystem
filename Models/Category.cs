@@ -10,14 +10,11 @@ public class Category
     
     [Required(ErrorMessage = "Category name is required")]
     [StringLength(100, ErrorMessage = "Category name cannot exceed 100 characters")]
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; }
     
     [StringLength(1000, ErrorMessage = "Category description cannot exceed 1000 characters")]
-    public string? Description { get; set; } = string.Empty;
+    public string? Description { get; set; }
     
-    [Required(ErrorMessage = "Price is required")]
-    [Range(0.01, 999999.99, ErrorMessage = "Price must be between 0.01 and 999,999.99")]
-    [Column(TypeName = "decimal(12,2)")]
-    public decimal Price { get; set; }
+    public ICollection<Product>? Products { get; set; }
     
 }

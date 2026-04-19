@@ -6,22 +6,29 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_CommerceProductManagementSystem.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class CustomersController : ControllerBase
 {
-    // private readonly ICustomerRepository _customerRepository;
-
-    private readonly IRepository<Customer> _customerRepository;
+    private readonly ICustomerRepository _customerRepository;
     
-    public CustomersController(IRepository<Customer> customerRepository)
+    private readonly ILogger<CustomersController> _logger;
+
+    // private readonly IRepository<Customer> _customerRepository;
+    
+    public CustomersController(ICustomerRepository customerRepository, ILogger<CustomersController> logger)
     {
         _customerRepository = customerRepository;
+        
+        _logger = logger;
     }
     
-    [HttpGet]
+    [HttpGet("GetCustomers")]
     public async Task<IActionResult> GetCustomers()
     {
         var customers = await _customerRepository.GetAllAsync();
+        
+        _logger.LogInformation("Fetching products at {Time}", DateTime.UtcNow);
+        
         var dtos = customers.Select(c => new CustomerDTO()
         {
             CustomerId = c.Id,
@@ -31,7 +38,7 @@ public class CustomersController : ControllerBase
         return Ok(dtos);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("GetCustomerById/{id}")]
     public async Task<IActionResult> GetCustomer(int id)
     {
         var customer = await _customerRepository.GetByIdAsync(id);
@@ -49,7 +56,7 @@ public class CustomersController : ControllerBase
         return Ok(dto);
     }
 
-    [HttpPost]
+    [HttpPost("CreateCustomer")]
     public async Task<IActionResult> CreateCustomer([FromBody] CustomerDTO customerDTO)
     {
         if(!ModelState.IsValid)
@@ -70,7 +77,7 @@ public class CustomersController : ControllerBase
         return Ok(customerDTO);
     }
     
-    [HttpPut("{id}")]
+    [HttpPut("UpdateCustomer/{id}")]
     public async Task<IActionResult> UpdateCustomer(int id, [FromBody] CustomerDTO dto)
     {
         if (id != dto.CustomerId) 
@@ -94,7 +101,7 @@ public class CustomersController : ControllerBase
         return NoContent();
     }
     
-    [HttpDelete("{id}")]
+    [HttpDelete("DeleteCustomer/{id}")]
     public async Task<IActionResult> DeleteCustomer(int id)
     {
         var existing = await _customerRepository.GetByIdAsync(id);

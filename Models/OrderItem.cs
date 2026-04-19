@@ -12,7 +12,7 @@ public class OrderItem
     [Required(ErrorMessage = "Order Id is required")]
     public int OrderId { get; set; }
     
-    public Order Order { get; set; }
+    public Order Order { get; set; } = null!;
     
     [ForeignKey(nameof(Product))]
     [Required(ErrorMessage = "Product Id is required")]

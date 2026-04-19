@@ -9,7 +9,7 @@ public class ProductRepository : IProductRepository
 {
     private readonly ECommerceProductManagementSystemDbContext _context;
     
-    private ProductRepository(ECommerceProductManagementSystemDbContext context)
+    public ProductRepository(ECommerceProductManagementSystemDbContext context)
     {
         _context = context;
     }

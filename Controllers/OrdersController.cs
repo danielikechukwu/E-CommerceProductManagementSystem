@@ -21,7 +21,7 @@ public class OrdersController : ControllerBase
         _customerRepository = customerRepository;
     }
     
-    [HttpGet]
+    [HttpGet("GetOrders")]
     public async Task<IActionResult> GetOrders()
     {
         var orders = await _orderRepository.GetAllAsync();
@@ -44,7 +44,7 @@ public class OrdersController : ControllerBase
         return Ok(dtos);
     }
     
-    [HttpGet("{id}")]
+    [HttpGet("GetOrderById/{id}")]
     public async Task<IActionResult> GetOrder(int id)
     {
         var o = await _orderRepository.GetByIdAsync(id);
@@ -72,7 +72,7 @@ public class OrdersController : ControllerBase
         return Ok(dto);
     }
     
-    [HttpPost]
+    [HttpPost("CreateOrder")]
     public async Task<IActionResult> CreateOrder([FromBody] OrderDTO dto)
     {
         if (!ModelState.IsValid) 
@@ -113,7 +113,7 @@ public class OrdersController : ControllerBase
         return Ok(dto);
     }
     
-    [HttpPut("{id}")]
+    [HttpPut("UpdateOrder/{id}")]
     public async Task<IActionResult> UpdateOrder(int id, [FromBody] OrderDTO dto)
     {
         if (id != dto.Id) 
@@ -161,7 +161,7 @@ public class OrdersController : ControllerBase
     }
     
     
-    [HttpDelete("{id}")]
+    [HttpDelete("DeleteOrder/{id}")]
     public async Task<IActionResult> DeleteOrder(int id)
     {
         var existing = await _orderRepository.GetByIdAsync(id);

@@ -8,7 +8,7 @@ public class ProductDTO
 
     [Required(ErrorMessage = "Product Name is required.")]
     [StringLength(150, ErrorMessage = "Product Name cannot exceed 150 characters.")]
-    public string Name { get; set; }
+    public string Name { get; set; } = String.Empty;
 
     [StringLength(1000, ErrorMessage = "Description cannot exceed 1000 characters.")]
     public string? Description { get; set; }
@@ -20,5 +20,5 @@ public class ProductDTO
     [Required(ErrorMessage = "CategoryId is required.")]
     public int CategoryId { get; set; }
 
-    public string CategoryName { get; set; }
+    public string CategoryName { get; set; } = String.Empty;
 }

@@ -10,19 +10,22 @@ namespace E_CommerceProductManagementSystem.Controllers;
 [ApiController]
 public class CategoriesController : ControllerBase
 {
-    // Repository for Category entity operations
-    private readonly IRepository<Category> _categoryRepository;
-    // private readonly ICategoryRepository _categoryRepository;
     
-    public CategoriesController(IRepository<Category> categoryRepository)
+    // Repository for Category entity operations
+    // private readonly IRepository<Category> _categoryRepository;
+    private readonly ICategoryRepository _categoryRepository;
+    
+    public CategoriesController(ICategoryRepository categoryRepository)
     {
         // Assign injected repository instance to private field
         _categoryRepository = categoryRepository;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+    [HttpGet("GetCategories")]
+    public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetCategories()
     {
+        // _logger.LogInformation("Products list requested at {Time}", DateTime.UtcNow);
+        
         // Fetch all Category entities from repository
         var categories = await _categoryRepository.GetAllAsync();
 
@@ -39,7 +42,7 @@ public class CategoriesController : ControllerBase
     }
 
     // HTTP GET api/categories/{id} - Retrieves a category by ID
-    [HttpGet("{id}")]
+    [HttpGet("GetCategoryById/{id}")]
     public async Task<IActionResult> GetCategory(int id)
     {
         // Fetch Category entity by primary key asynchronously
@@ -61,7 +64,7 @@ public class CategoriesController : ControllerBase
         return Ok(dto);
     }
 
-    [HttpPost]
+    [HttpPost("CreateCategory")]
     public async Task<IActionResult> CreateCategory([FromBody] CategoryDTO dto)
     {
         if (!ModelState.IsValid)
@@ -81,7 +84,7 @@ public class CategoriesController : ControllerBase
         return Ok(dto);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("UpdateCategory/{id}")]
     public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryDTO dto)
     {
         if (id != dto.Id)
@@ -103,9 +106,10 @@ public class CategoriesController : ControllerBase
         await _categoryRepository.SaveAsync();
         
         return Ok();
+        
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("DeleteCategory/{id}")]
     public async Task<IActionResult> DeleteCategory(int id)
     {
         var existingCategory = await _categoryRepository.GetByIdAsync(id);

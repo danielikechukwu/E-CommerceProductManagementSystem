@@ -19,5 +19,5 @@ public class OrderDTO
     public decimal OrderAmount { get; set; }
 
     [Required(ErrorMessage = "Order Items are required.")]
-    public List<OrderItemDTO>? OrderItems { get; set; }
+    public List<OrderItemDTO> OrderItems { get; set; } = new List<OrderItemDTO>();
 }

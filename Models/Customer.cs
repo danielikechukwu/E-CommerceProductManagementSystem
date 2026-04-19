@@ -9,12 +9,12 @@ public class Customer
     
     [Required(ErrorMessage = "Fullname is required")]
     [MaxLength(200, ErrorMessage = "Fullname must be less than 200 characters")]
-    public string FullName { get; set; } = string.Empty;
+    public string FullName { get; set; }
     
     [Required(ErrorMessage = "Email is required")]
     [MaxLength(200, ErrorMessage = "Email must be less than 200 characters")]
     [EmailAddress(ErrorMessage = "Invalid Email Address")]
-    public string Email { get; set; } = string.Empty;
+    public string Email { get; set; }
     
     public ICollection<Order>? Orders { get; set; }
 }

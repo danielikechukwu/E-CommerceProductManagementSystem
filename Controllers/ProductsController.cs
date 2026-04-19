@@ -21,7 +21,7 @@ public class ProductsController : ControllerBase
         _categoryRepository = categoryRepository;
     }
 
-    [HttpGet]
+    [HttpGet("GetProducts")]
     public async Task<IActionResult> GetProducts()
     {
         var products = await _productRepository.GetAllAsync();
@@ -33,13 +33,13 @@ public class ProductsController : ControllerBase
             Description = p.Description,
             Price = p.Price,
             CategoryId = p.CategoryId,
-            CategoryName = p.Category?.Name
+            CategoryName = p.Category.Name
         });
 
         return Ok(dtos);
     }
 
-    [HttpPost]
+    [HttpPost("CreateProducts")]
     public async Task<IActionResult> CreateProduct([FromBody] ProductDTO dto)
     {
         if (!ModelState.IsValid)
@@ -67,7 +67,7 @@ public class ProductsController : ControllerBase
         return Ok(dto);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("UpdateProduct/{id}")]
     public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductDTO dto)
     {
         if (id != dto.Id)
@@ -98,7 +98,7 @@ public class ProductsController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("DeleteProduct/{id}")]
     public async Task<IActionResult> DeleteProduct(int id)
     {
         var existing = await _productRepository.GetByIdAsync(id);

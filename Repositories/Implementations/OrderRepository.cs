@@ -8,7 +8,7 @@ public class OrderRepository : IOrderRepository
 {
     private readonly ECommerceProductManagementSystemDbContext  _context;
 
-    private OrderRepository(ECommerceProductManagementSystemDbContext context)
+    public OrderRepository(ECommerceProductManagementSystemDbContext context)
     {
         _context = context;
     }
