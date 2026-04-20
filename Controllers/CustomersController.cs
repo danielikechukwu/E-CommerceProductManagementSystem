@@ -9,14 +9,14 @@ namespace E_CommerceProductManagementSystem.Controllers;
 [Route("api/[controller]")]
 public class CustomersController : ControllerBase
 {
-    // private readonly ICustomerRepository _customerRepository;
-    private readonly IRepository<Customer> _customerRepository;
+    private readonly ICustomerRepository _customerRepository;
+    // private readonly IRepository<Customer> _customerRepository;
 
     private readonly ILogger<CustomersController> _logger;
 
     // private readonly IRepository<Customer> _customerRepository;
 
-    public CustomersController(IRepository<Customer> customerRepository, ILogger<CustomersController> logger)
+    public CustomersController(ICustomerRepository customerRepository, ILogger<CustomersController> logger)
     {
         _customerRepository = customerRepository;
 
