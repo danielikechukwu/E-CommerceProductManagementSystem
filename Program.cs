@@ -1,6 +1,7 @@
 using E_CommerceProductManagementSystem.Data;
 using E_CommerceProductManagementSystem.Repositories;
 using E_CommerceProductManagementSystem.Repositories.Implementations;
+using E_CommerceProductManagementSystem.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -18,6 +19,9 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 // Register Generic repository
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+
+// Register Unit of Work service
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
